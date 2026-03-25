@@ -15,3 +15,16 @@ add_executable(kalman_filter
 
 target_link_libraries(kalman_filter Eigen3::Eigen)
 
+# Google Test
+include(FetchContent)
+FetchContent_Declare(
+  googletest
+  URL https://github.com/google/googletest/archive/refs/tags/v1.14.0.zip
+)
+FetchContent_MakeAvailable(googletest)
+
+enable_testing()
+add_executable(run_tests tests/test_ekf.cpp src/ekf.cpp src/multi_object_tracker.cpp)
+target_link_libraries(run_tests gtest_main Eigen3::Eigen)
+add_test(NAME EKFTests COMMAND run_tests)
+

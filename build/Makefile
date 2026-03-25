@@ -65,6 +65,16 @@ CMAKE_BINARY_DIR = /Users/bapnarb/Desktop/kalman-filter-cpp/build
 #=============================================================================
 # Targets provided globally by CMake.
 
+# Special rule for the target test
+test:
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Running tests..."
+	/usr/local/bin/ctest $(ARGS)
+.PHONY : test
+
+# Special rule for the target test
+test/fast: test
+.PHONY : test/fast
+
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Running CMake cache editor..."
@@ -84,6 +94,51 @@ rebuild_cache:
 # Special rule for the target rebuild_cache
 rebuild_cache/fast: rebuild_cache
 .PHONY : rebuild_cache/fast
+
+# Special rule for the target list_install_components
+list_install_components:
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Available install components are: \"gmock\" \"gtest\""
+.PHONY : list_install_components
+
+# Special rule for the target list_install_components
+list_install_components/fast: list_install_components
+.PHONY : list_install_components/fast
+
+# Special rule for the target install
+install: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Install the project..."
+	/usr/local/bin/cmake -P cmake_install.cmake
+.PHONY : install
+
+# Special rule for the target install
+install/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Install the project..."
+	/usr/local/bin/cmake -P cmake_install.cmake
+.PHONY : install/fast
+
+# Special rule for the target install/local
+install/local: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Installing only the local directory..."
+	/usr/local/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local
+
+# Special rule for the target install/local
+install/local/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Installing only the local directory..."
+	/usr/local/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local/fast
+
+# Special rule for the target install/strip
+install/strip: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Installing the project stripped..."
+	/usr/local/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+.PHONY : install/strip
+
+# Special rule for the target install/strip
+install/strip/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Installing the project stripped..."
+	/usr/local/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+.PHONY : install/strip/fast
 
 # The main all target
 all: cmake_check_build_system
@@ -129,12 +184,78 @@ kalman_filter/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/kalman_filter.dir/build.make CMakeFiles/kalman_filter.dir/build
 .PHONY : kalman_filter/fast
 
+#=============================================================================
+# Target rules for targets named run_tests
+
+# Build rule for target.
+run_tests: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 run_tests
+.PHONY : run_tests
+
+# fast build rule for target.
+run_tests/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/run_tests.dir/build.make CMakeFiles/run_tests.dir/build
+.PHONY : run_tests/fast
+
+#=============================================================================
+# Target rules for targets named gmock
+
+# Build rule for target.
+gmock: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 gmock
+.PHONY : gmock
+
+# fast build rule for target.
+gmock/fast:
+	$(MAKE) $(MAKESILENT) -f _deps/googletest-build/googlemock/CMakeFiles/gmock.dir/build.make _deps/googletest-build/googlemock/CMakeFiles/gmock.dir/build
+.PHONY : gmock/fast
+
+#=============================================================================
+# Target rules for targets named gmock_main
+
+# Build rule for target.
+gmock_main: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 gmock_main
+.PHONY : gmock_main
+
+# fast build rule for target.
+gmock_main/fast:
+	$(MAKE) $(MAKESILENT) -f _deps/googletest-build/googlemock/CMakeFiles/gmock_main.dir/build.make _deps/googletest-build/googlemock/CMakeFiles/gmock_main.dir/build
+.PHONY : gmock_main/fast
+
+#=============================================================================
+# Target rules for targets named gtest
+
+# Build rule for target.
+gtest: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 gtest
+.PHONY : gtest
+
+# fast build rule for target.
+gtest/fast:
+	$(MAKE) $(MAKESILENT) -f _deps/googletest-build/googletest/CMakeFiles/gtest.dir/build.make _deps/googletest-build/googletest/CMakeFiles/gtest.dir/build
+.PHONY : gtest/fast
+
+#=============================================================================
+# Target rules for targets named gtest_main
+
+# Build rule for target.
+gtest_main: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 gtest_main
+.PHONY : gtest_main
+
+# fast build rule for target.
+gtest_main/fast:
+	$(MAKE) $(MAKESILENT) -f _deps/googletest-build/googletest/CMakeFiles/gtest_main.dir/build.make _deps/googletest-build/googletest/CMakeFiles/gtest_main.dir/build
+.PHONY : gtest_main/fast
+
 src/ekf.o: src/ekf.cpp.o
 .PHONY : src/ekf.o
 
 # target to build an object file
 src/ekf.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/kalman_filter.dir/build.make CMakeFiles/kalman_filter.dir/src/ekf.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/run_tests.dir/build.make CMakeFiles/run_tests.dir/src/ekf.cpp.o
 .PHONY : src/ekf.cpp.o
 
 src/ekf.i: src/ekf.cpp.i
@@ -143,6 +264,7 @@ src/ekf.i: src/ekf.cpp.i
 # target to preprocess a source file
 src/ekf.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/kalman_filter.dir/build.make CMakeFiles/kalman_filter.dir/src/ekf.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/run_tests.dir/build.make CMakeFiles/run_tests.dir/src/ekf.cpp.i
 .PHONY : src/ekf.cpp.i
 
 src/ekf.s: src/ekf.cpp.s
@@ -151,6 +273,7 @@ src/ekf.s: src/ekf.cpp.s
 # target to generate assembly for a file
 src/ekf.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/kalman_filter.dir/build.make CMakeFiles/kalman_filter.dir/src/ekf.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/run_tests.dir/build.make CMakeFiles/run_tests.dir/src/ekf.cpp.s
 .PHONY : src/ekf.cpp.s
 
 src/main.o: src/main.cpp.o
@@ -183,6 +306,7 @@ src/multi_object_tracker.o: src/multi_object_tracker.cpp.o
 # target to build an object file
 src/multi_object_tracker.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/kalman_filter.dir/build.make CMakeFiles/kalman_filter.dir/src/multi_object_tracker.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/run_tests.dir/build.make CMakeFiles/run_tests.dir/src/multi_object_tracker.cpp.o
 .PHONY : src/multi_object_tracker.cpp.o
 
 src/multi_object_tracker.i: src/multi_object_tracker.cpp.i
@@ -191,6 +315,7 @@ src/multi_object_tracker.i: src/multi_object_tracker.cpp.i
 # target to preprocess a source file
 src/multi_object_tracker.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/kalman_filter.dir/build.make CMakeFiles/kalman_filter.dir/src/multi_object_tracker.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/run_tests.dir/build.make CMakeFiles/run_tests.dir/src/multi_object_tracker.cpp.i
 .PHONY : src/multi_object_tracker.cpp.i
 
 src/multi_object_tracker.s: src/multi_object_tracker.cpp.s
@@ -199,7 +324,32 @@ src/multi_object_tracker.s: src/multi_object_tracker.cpp.s
 # target to generate assembly for a file
 src/multi_object_tracker.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/kalman_filter.dir/build.make CMakeFiles/kalman_filter.dir/src/multi_object_tracker.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/run_tests.dir/build.make CMakeFiles/run_tests.dir/src/multi_object_tracker.cpp.s
 .PHONY : src/multi_object_tracker.cpp.s
+
+tests/test_ekf.o: tests/test_ekf.cpp.o
+.PHONY : tests/test_ekf.o
+
+# target to build an object file
+tests/test_ekf.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/run_tests.dir/build.make CMakeFiles/run_tests.dir/tests/test_ekf.cpp.o
+.PHONY : tests/test_ekf.cpp.o
+
+tests/test_ekf.i: tests/test_ekf.cpp.i
+.PHONY : tests/test_ekf.i
+
+# target to preprocess a source file
+tests/test_ekf.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/run_tests.dir/build.make CMakeFiles/run_tests.dir/tests/test_ekf.cpp.i
+.PHONY : tests/test_ekf.cpp.i
+
+tests/test_ekf.s: tests/test_ekf.cpp.s
+.PHONY : tests/test_ekf.s
+
+# target to generate assembly for a file
+tests/test_ekf.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/run_tests.dir/build.make CMakeFiles/run_tests.dir/tests/test_ekf.cpp.s
+.PHONY : tests/test_ekf.cpp.s
 
 # Help Target
 help:
@@ -208,8 +358,18 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... edit_cache"
+	@echo "... install"
+	@echo "... install/local"
+	@echo "... install/strip"
+	@echo "... list_install_components"
 	@echo "... rebuild_cache"
+	@echo "... test"
+	@echo "... gmock"
+	@echo "... gmock_main"
+	@echo "... gtest"
+	@echo "... gtest_main"
 	@echo "... kalman_filter"
+	@echo "... run_tests"
 	@echo "... src/ekf.o"
 	@echo "... src/ekf.i"
 	@echo "... src/ekf.s"
@@ -219,6 +379,9 @@ help:
 	@echo "... src/multi_object_tracker.o"
 	@echo "... src/multi_object_tracker.i"
 	@echo "... src/multi_object_tracker.s"
+	@echo "... tests/test_ekf.o"
+	@echo "... tests/test_ekf.i"
+	@echo "... tests/test_ekf.s"
 .PHONY : help
 
 

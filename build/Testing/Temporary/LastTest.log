@@ -1,0 +1,32 @@
+Start testing: Mar 24 17:59 PDT
+----------------------------------------------------------
+1/1 Testing: EKFTests
+1/1 Test: EKFTests
+Command: "/Users/bapnarb/Desktop/kalman-filter-cpp/build/run_tests"
+Directory: /Users/bapnarb/Desktop/kalman-filter-cpp/build
+"EKFTests" start time: Mar 24 17:59 PDT
+Output:
+----------------------------------------------------------
+[==========] Running 3 tests from 1 test suite.
+[----------] Global test environment set-up.
+[----------] 3 tests from EKFTest
+[ RUN      ] EKFTest.InitializesCorrectly
+[       OK ] EKFTest.InitializesCorrectly (0 ms)
+[ RUN      ] EKFTest.PredictMovesState
+[       OK ] EKFTest.PredictMovesState (0 ms)
+[ RUN      ] EKFTest.UpdateReducesUncertainty
+[       OK ] EKFTest.UpdateReducesUncertainty (0 ms)
+[----------] 3 tests from EKFTest (0 ms total)
+
+[----------] Global test environment tear-down
+[==========] 3 tests from 1 test suite ran. (0 ms total)
+[  PASSED  ] 3 tests.
+<end of output>
+Test time =   0.05 sec
+----------------------------------------------------------
+Test Passed.
+"EKFTests" end time: Mar 24 17:59 PDT
+"EKFTests" time elapsed: 00:00:00
+----------------------------------------------------------
+
+End testing: Mar 24 17:59 PDT
